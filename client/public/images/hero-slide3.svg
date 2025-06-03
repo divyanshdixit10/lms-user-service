@@ -1,0 +1,5 @@
+<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="600" fill="#0891B2" />
+  <text x="400" y="300" font-family="Arial" font-size="48" text-anchor="middle" fill="white">Cloud Computing & DevOps</text>
+  <text x="400" y="360" font-family="Arial" font-size="24" text-anchor="middle" fill="white">Scale your applications with modern infrastructure</text>
+</svg> 

@@ -1,0 +1,30 @@
+{
+  "dependencies": {
+    "chart.js": "^4.4.9",
+    "framer-motion": "^12.10.5",
+    "react-chartjs-2": "^5.3.0",
+    "react-hot-toast": "^2.5.2",
+    "react-icons": "^5.5.0",
+    "react-player": "^2.16.0",
+    "youtube-info-streams": "^1.1.1"
+  },
+  "name": "osop-coding",
+  "version": "1.0.0",
+  "description": "This project demonstrates several innovative features for a next-generation coding education platform:",
+  "main": "get-youtube-info.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/divyanshdixit10/OSOP-CODING.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/divyanshdixit10/OSOP-CODING/issues"
+  },
+  "homepage": "https://github.com/divyanshdixit10/OSOP-CODING#readme"
+}
