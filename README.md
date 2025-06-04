@@ -314,4 +314,4 @@ For support and questions:
 
 ---
 
-**OSOP Coding LMS User Service** - Building the future of online learning! 🎓 
+**OSOP Coding LMS User Service** - Building the future of online learning! 🎓
