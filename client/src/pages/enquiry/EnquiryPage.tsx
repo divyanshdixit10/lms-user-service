@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, useInView, useScroll, useTransform, AnimatePresence, useSpring } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams, useNavigate } from 'react-router-dom';
 import { useTheme } from '../../contexts/ThemeContext';
 import ParticleBackground from '../../components/ui/ParticleBackground';
 import HeroGradientText from '../../components/ui/HeroGradientText';
@@ -182,6 +182,8 @@ const EnquiryPage: React.FC = () => {
   const formInViewRef = useRef<HTMLDivElement>(null);
   const formInView = useInView(formInViewRef);
   const { scrollY } = useScroll();
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
   
   // Advanced scroll animations
   const heroOpacity = useTransform(scrollY, [0, 500], [1, 0]);
@@ -198,11 +200,17 @@ const EnquiryPage: React.FC = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [formProgress, setFormProgress] = useState(0);
   
+  // Get course information from URL parameters
+  const courseId = searchParams.get('courseId');
+  const courseName = searchParams.get('courseName');
+  const coursePrice = searchParams.get('coursePrice');
+  const enrollmentLink = "https://gontq.courses.store/649688?utm_source=other&utm_medium=tutor-course-referral&utm_campaign=course-overview-webapp";
+  
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
     phoneNumber: '',
-    courseName: '',
+    courseName: courseName || '',
     message: '',
     experience: '',
     goals: ''
@@ -259,6 +267,22 @@ const EnquiryPage: React.FC = () => {
     const filledFields = fields.filter(field => formData[field as keyof typeof formData].trim() !== '');
     setFormProgress((filledFields.length / fields.length) * 100);
   }, [formData]);
+
+  useEffect(() => {
+    if (searchParams.get('course')) {
+      setFormData(prev => ({
+        ...prev,
+        courseName: searchParams.get('course') || ''
+      }));
+    }
+  }, [searchParams]);
+
+  useEffect(() => {
+    if (submitted) {
+      const redirectUrl = searchParams.get('redirect') || '/courses';
+      navigate(redirectUrl);
+    }
+  }, [submitted, searchParams, navigate]);
 
   // Enhanced validation with real-time feedback
   const validateField = (name: string, value: string) => {
@@ -351,6 +375,11 @@ const EnquiryPage: React.FC = () => {
           experience: '',
           goals: ''
         });
+        
+        // Redirect to enrollment link after successful submission
+        if (enrollmentLink) {
+          window.open(enrollmentLink, '_blank');
+        }
       }, 500);
     } catch (error: any) {
       console.error('Enquiry submission failed:', error);
@@ -596,6 +625,31 @@ const EnquiryPage: React.FC = () => {
                 </span>
               </motion.h2>
               
+              {/* Course Information Banner */}
+              {courseName && (
+                <motion.div
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className={`inline-flex items-center gap-3 px-6 py-3 rounded-xl mb-6 ${
+                    theme === 'dark'
+                      ? 'bg-blue-900/30 border border-blue-700/50 text-blue-300'
+                      : 'bg-blue-50 border border-blue-200 text-blue-700'
+                  }`}
+                >
+                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                  </svg>
+                  <span className="font-semibold">Course Selected: {courseName}</span>
+                  {coursePrice && (
+                    <span className={`px-2 py-1 rounded-lg text-sm ${
+                      theme === 'dark' ? 'bg-blue-800/50' : 'bg-blue-100'
+                    }`}>
+                      {coursePrice}
+                    </span>
+                  )}
+                </motion.div>
+              )}
+              
               <motion.p 
                 className={`text-xl font-medium ${theme === 'dark' ? 'text-slate-200' : 'text-slate-700'} mb-8`}
                 initial={{ opacity: 0, y: 20 }}
@@ -692,6 +746,11 @@ const EnquiryPage: React.FC = () => {
                         transition={{ delay: 0.4 }}
                       >
                         Thank you for your interest in OSOP. Our admissions team will contact you within 24 hours to discuss your learning goals and course options.
+                        {courseName && (
+                          <span className="block mt-2 font-semibold text-blue-600">
+                            You will be redirected to complete your enrollment for "{courseName}".
+                          </span>
+                        )}
                       </motion.p>
                       
                       <motion.div 

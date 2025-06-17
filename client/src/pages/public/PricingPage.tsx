@@ -208,7 +208,7 @@ const PricingPage: React.FC = () => {
             Contact our support team and we'll be happy to help you choose the right plan.
           </p>
           <Link
-            to="/contact"
+            to="/enquiry"
             className={`inline-flex items-center px-6 py-3 rounded-lg ${
               theme === 'dark'
                 ? 'bg-secondary-700 hover:bg-secondary-600 text-white'

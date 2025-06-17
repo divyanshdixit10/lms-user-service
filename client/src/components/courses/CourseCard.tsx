@@ -178,7 +178,7 @@ const CourseCard: React.FC<CourseCardProps> = ({
             scale: isHovered ? 1.05 : 1
           }}
           transition={{ duration: 0.5 }}
-          onError={(e) => {
+          onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => {
             e.currentTarget.src = "https://placehold.co/400x200?text=Course";
           }}
         />

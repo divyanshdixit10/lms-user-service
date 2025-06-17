@@ -195,7 +195,7 @@ const CoursePreviewModal: React.FC<CoursePreviewModalProps> = ({ isOpen, onClose
   
   // Handle direct enrollment
   const handleEnroll = () => {
-    navigate(`/checkout/${course.title.toLowerCase().replace(/\s+/g, '-')}`);
+    navigate(`/enquiry?courseId=${course.id}&courseName=${encodeURIComponent(course.title)}&coursePrice=${encodeURIComponent(`$${course.price}`)}`);
   };
   
   // Handle wishlist toggle
@@ -266,7 +266,7 @@ const CoursePreviewModal: React.FC<CoursePreviewModalProps> = ({ isOpen, onClose
               initial="hidden"
               animate="visible"
               exit="exit"
-              onClick={(e) => e.stopPropagation()}
+              onClick={(e: React.MouseEvent) => e.stopPropagation()}
               className="inline-block w-full max-w-5xl overflow-hidden text-left align-bottom transition-all transform bg-white rounded-xl shadow-2xl dark:bg-gray-800 sm:my-8 sm:align-middle"
             >
               <div className="relative">

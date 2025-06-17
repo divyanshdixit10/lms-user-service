@@ -1630,10 +1630,8 @@ const CourseDetailsPage: React.FC = () => {
                   )}
                 </div>
                 
-                <a
-                  href="https://gontq.courses.store/649688?utm_source=other&utm_medium=tutor-course-referral&utm_campaign=course-overview-webapp"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <Link
+                  to={`/enquiry?courseId=${course.id}&courseName=${encodeURIComponent(course.title)}&coursePrice=${encodeURIComponent(course.price)}`}
                   className={`block w-full py-3 px-4 rounded-lg font-medium transition-colors text-center ${
                     isEnrolled 
                       ? 'bg-green-600 text-white cursor-not-allowed pointer-events-none'
@@ -1650,7 +1648,7 @@ const CourseDetailsPage: React.FC = () => {
                         ? 'Coming Soon'
                         : 'Enrollment Closed'
                   }
-                </a>
+                </Link>
                 
                 <div className="mt-6 space-y-3">
                   <div className="flex justify-between">

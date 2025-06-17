@@ -2283,10 +2283,8 @@ const CoursesPage: React.FC = () => {
                   View Details
                 </Link>
                             
-                            <a 
-                              href="https://gontq.courses.store/649688?utm_source=other&utm_medium=tutor-course-referral&utm_campaign=course-overview-webapp"
-                              target="_blank"
-                              rel="noopener noreferrer"
+                            <Link
+                              to={`/enquiry?courseId=${course.id}&courseName=${encodeURIComponent(course.title)}&coursePrice=${encodeURIComponent(course.price)}`}
                               className={`px-4 py-2 rounded-lg text-sm font-medium ${
                                 theme === 'dark'
                                   ? 'bg-blue-600 text-white hover:bg-blue-700'
@@ -2295,7 +2293,7 @@ const CoursesPage: React.FC = () => {
                               aria-label={`Enroll now in ${course.title}`}
                             >
                               Enroll Now
-                </a>
+                            </Link>
               </div>
             </div>
                       </div>
@@ -2572,7 +2570,7 @@ const CoursesPage: React.FC = () => {
               className="flex flex-col sm:flex-row gap-4 justify-center"
             >
               <Link 
-                to="/contact" 
+                to="/enquiry" 
                 className="px-8 py-4 rounded-lg font-medium bg-gradient-to-r from-blue-600 to-indigo-600 text-white hover:from-blue-700 hover:to-indigo-700 transition-colors shadow-lg hover:shadow-xl"
               >
                 Get Free Counseling

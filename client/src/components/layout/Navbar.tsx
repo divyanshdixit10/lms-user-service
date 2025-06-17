@@ -96,10 +96,10 @@ const courseCategories = [
 
 const navLinks = [
   { name: "Home", path: "/" },
-  { name: "About", path: "/about" },
+  { name: "What is OSOP?", path: "/what-is-osop" },
   { name: "Placement", path: "/placement" },
   { name: "Hire from us", path: "/hire" },
-  { name: "Contact", path: "/contact" }
+  { name: "Enquiry", path: "/enquiry" }
 ];
 
 // Navigation links for authenticated users (students/admins)
@@ -107,8 +107,7 @@ const authenticatedNavLinks = [
   { name: "Dashboard", path: "/dashboard" },
   { name: "My Learning", path: "/my-learning" },
   { name: "Code Practice", path: "/practice" },
-  { name: "About", path: "/about" },
-  { name: "Contact", path: "/contact" }
+  { name: "What is OSOP?", path: "/what-is-osop" }
 ];
 
 // Admin specific links
@@ -124,8 +123,7 @@ const getNavLinkTooltip = (linkName: string): string => {
     case "Dashboard": return "View your learning dashboard";
     case "My Learning": return "Track your course progress";
     case "Code Practice": return "Practice coding with interactive exercises";
-    case "About": return "Learn about OSOP-CODING";
-    case "Contact": return "Get in touch with us";
+    case "What is OSOP?": return "Learn about OSOP Coding and our mission";
     default: return "";
   }
 };
@@ -206,16 +204,20 @@ const Navbar: React.FC = () => {
     <header 
       className={`sticky top-0 z-50 w-full transition-all duration-300 ${
         isScrolled ? 
-        'backdrop-blur-md bg-white/98 dark:bg-gray-900/98 shadow-lg border-b border-gray-200/30 dark:border-gray-700/30' : 
-        'bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm border-b border-gray-200/20 dark:border-gray-700/20'
+        'backdrop-blur-xl bg-white/90 dark:bg-gray-900/90 shadow-xl border-b border-primary-200/50 dark:border-gray-700/50' : 
+        'bg-gradient-to-r from-white/95 via-primary-50/30 to-white/95 dark:from-gray-900/95 dark:via-gray-800/30 dark:to-gray-900/95 backdrop-blur-lg border-b border-primary-300/30 dark:border-gray-700/30'
       }`}
     >
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center py-3">
           {/* Logo */}
           <Link to={isAuthenticated ? "/dashboard" : "/"} className="flex items-center group">
-            <div className="rounded-xl relative overflow-hidden group-hover:scale-105 transition-transform duration-300">
-              <img src={osopLogo} alt="OSOP-CODING Logo" className="h-12 w-auto object-contain relative z-10" />
+            <div className="rounded-xl relative overflow-hidden group-hover:scale-105 transition-all duration-300">
+              <img 
+                src={osopLogo} 
+                alt="OSOP-CODING Logo" 
+                className="h-12 w-auto object-contain relative z-10 transition-all duration-300"
+              />
             </div>
           </Link>
           
@@ -230,10 +232,10 @@ const Navbar: React.FC = () => {
                     to={link.path}
                     title={getNavLinkTooltip(link.name)}
                     className={({ isActive }) => 
-                      `px-4 py-2 rounded-lg font-medium transition-all duration-200 hover:scale-105 ${
+                      `px-4 py-2 rounded-xl font-medium transition-all duration-300 hover:scale-105 relative overflow-hidden ${
                         isActive 
-                          ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg' 
-                          : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
+                          ? 'bg-gradient-to-r from-primary-500 via-primary-600 to-amber-500 text-white shadow-lg shadow-primary-500/25' 
+                          : `${isScrolled ? 'text-gray-800 hover:bg-primary-50/80 hover:text-primary-700' : 'text-gray-700 hover:bg-primary-100/60 hover:text-primary-800'} dark:text-gray-300 dark:hover:bg-gray-800/70 dark:hover:text-primary-400 font-semibold hover:shadow-md`
                       }`
                     }
                   >
@@ -248,10 +250,10 @@ const Navbar: React.FC = () => {
                     to={link.path}
                     title={getAdminLinkTooltip(link.name)}
                     className={({ isActive }) => 
-                      `px-4 py-2 rounded-lg font-medium transition-all duration-200 hover:scale-105 ${
+                      `px-4 py-2 rounded-xl font-medium transition-all duration-300 hover:scale-105 relative overflow-hidden ${
                         isActive 
-                          ? 'bg-gradient-to-r from-red-500 to-pink-600 text-white shadow-lg' 
-                          : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
+                          ? 'bg-gradient-to-r from-red-500 via-pink-600 to-rose-500 text-white shadow-lg shadow-red-500/25' 
+                          : `${isScrolled ? 'text-gray-800 hover:bg-red-50/80 hover:text-red-700' : 'text-gray-700 hover:bg-red-100/60 hover:text-red-800'} dark:text-gray-300 dark:hover:bg-gray-800/70 dark:hover:text-red-400 font-semibold hover:shadow-md`
                       }`
                     }
                   >
@@ -267,10 +269,10 @@ const Navbar: React.FC = () => {
                     key={link.name}
                     to={link.path}
                     className={({ isActive }) => 
-                      `px-4 py-2 rounded-lg font-medium transition-all duration-200 hover:scale-105 ${
+                      `px-4 py-2 rounded-xl font-medium transition-all duration-300 hover:scale-105 relative overflow-hidden ${
                         isActive 
-                          ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg' 
-                          : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
+                          ? 'bg-gradient-to-r from-primary-500 via-primary-600 to-amber-500 text-white shadow-lg shadow-primary-500/25' 
+                          : `${isScrolled ? 'text-gray-800 hover:bg-primary-50/80 hover:text-primary-700' : 'text-gray-700 hover:bg-primary-100/60 hover:text-primary-800'} dark:text-gray-300 dark:hover:bg-gray-800/70 dark:hover:text-primary-400 font-semibold hover:shadow-md`
                       }`
                     }
                   >
@@ -286,12 +288,11 @@ const Navbar: React.FC = () => {
               onMouseEnter={() => setIsCoursesMenuOpen(true)}
               onMouseLeave={() => setIsCoursesMenuOpen(false)}
             >
-              <Link
-                to="/courses"
-                className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all duration-200 hover:scale-105 ${
+              <button
+                className={`flex items-center gap-2 px-4 py-2 rounded-xl font-medium transition-all duration-300 hover:scale-105 relative overflow-hidden ${
                   isCoursesMenuOpen
-                    ? 'bg-gradient-to-r from-indigo-500 to-purple-600 text-white shadow-lg'
-                    : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
+                    ? 'bg-gradient-to-r from-indigo-500 via-purple-600 to-blue-500 text-white shadow-lg shadow-indigo-500/25'
+                    : `${isScrolled ? 'text-gray-800 hover:bg-indigo-50/80 hover:text-indigo-700' : 'text-gray-700 hover:bg-indigo-100/60 hover:text-indigo-800'} dark:text-gray-300 dark:hover:bg-gray-800/70 dark:hover:text-indigo-400 font-semibold hover:shadow-md`
                 }`}
               >
                 <span>Courses</span>
@@ -310,7 +311,7 @@ const Navbar: React.FC = () => {
                         d="M19 9l-7 7-7-7"
                       />
                     </svg>
-              </Link>
+              </button>
               
               <AnimatePresence>
                 {isCoursesMenuOpen && (
@@ -318,11 +319,11 @@ const Navbar: React.FC = () => {
                     initial={{ opacity: 0, y: 10, scale: 0.95 }}
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                    transition={{ duration: 0.2 }}
-                    className={`fixed inset-x-0 top-16 mx-auto z-50 rounded-2xl shadow-2xl border transition-all duration-200 max-h-[80vh] overflow-y-auto ${
+                    transition={{ duration: 0.3, ease: "easeOut" }}
+                    className={`fixed left-1/2 transform -translate-x-1/2 top-20 z-50 rounded-3xl shadow-2xl border transition-all duration-300 max-h-[85vh] overflow-y-auto ${
                       theme === 'dark'
-                        ? 'bg-gray-800/95 border-gray-700/50 backdrop-blur-xl'
-                        : 'bg-white/95 border-gray-200/50 backdrop-blur-xl'
+                        ? 'bg-gradient-to-br from-gray-800/95 via-gray-900/95 to-gray-800/95 border-gray-700/50 backdrop-blur-2xl'
+                        : 'bg-gradient-to-br from-white/95 via-primary-50/20 to-white/95 border-primary-200/50 backdrop-blur-2xl'
                     }`}
                     style={{
                       width: 'min(calc(100vw - 2rem), 1200px)',
@@ -346,7 +347,7 @@ const Navbar: React.FC = () => {
                         </div>
                               <Link
                           to="/courses"
-                          className="px-3 py-1.5 sm:px-4 sm:py-2 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg font-medium hover:shadow-lg transition-all duration-200 hover:scale-105 text-sm sm:text-base whitespace-nowrap"
+                          className="px-4 py-2 sm:px-5 sm:py-2.5 bg-gradient-to-r from-primary-500 via-primary-600 to-amber-500 text-white rounded-xl font-medium hover:shadow-xl hover:shadow-primary-500/25 transition-all duration-300 hover:scale-105 text-sm sm:text-base whitespace-nowrap"
                         >
                           View All Courses
                         </Link>
@@ -357,10 +358,10 @@ const Navbar: React.FC = () => {
                         {courseCategories.map((category) => (
                           <div
                                 key={category.title}
-                            className={`p-2 sm:p-3 lg:p-4 rounded-lg sm:rounded-xl border transition-all duration-200 hover:shadow-lg ${
+                            className={`p-3 sm:p-4 lg:p-5 rounded-xl sm:rounded-2xl border transition-all duration-300 hover:shadow-xl hover:scale-[1.02] ${
                                   theme === 'dark'
-                                ? 'bg-gray-700/50 border-gray-600/50 hover:bg-gray-700/70'
-                                : 'bg-gray-50/50 border-gray-200/50 hover:bg-gray-50/70'
+                                ? 'bg-gradient-to-br from-gray-700/50 to-gray-800/50 border-gray-600/50 hover:from-gray-700/70 hover:to-gray-800/70'
+                                : 'bg-gradient-to-br from-gray-50/50 to-white/50 border-gray-200/50 hover:from-gray-50/70 hover:to-white/70'
                             }`}
                           >
                             {/* Category Header */}
@@ -474,7 +475,11 @@ const Navbar: React.FC = () => {
             {/* Theme Toggle */}
             <button
               onClick={toggleTheme}
-              className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors border border-gray-200 dark:border-gray-700"
+              className={`p-3 rounded-xl transition-all duration-300 border shadow-lg hover:scale-105 ${
+                isScrolled 
+                  ? 'text-gray-800 hover:bg-amber-50/80 border-amber-200/50 hover:text-amber-700 hover:shadow-amber-200/50' 
+                  : 'text-gray-700 hover:bg-amber-100/60 border-amber-300/30 hover:text-amber-800 hover:shadow-amber-300/50'
+              } dark:text-gray-300 dark:hover:bg-gray-800/70 dark:border-gray-700/50 dark:hover:text-amber-400 dark:hover:shadow-gray-800/50`}
               aria-label="Toggle dark mode"
             >
               {theme === 'dark' ? (
@@ -486,7 +491,7 @@ const Navbar: React.FC = () => {
                   />
                 </svg>
               ) : (
-                <svg className="w-5 h-5 text-gray-800 dark:text-gray-200" fill="currentColor" viewBox="0 0 20 20">
+                <svg className="w-5 h-5 text-slate-700" fill="currentColor" viewBox="0 0 20 20">
                   <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
                 </svg>
               )}
@@ -498,7 +503,11 @@ const Navbar: React.FC = () => {
                 <div className="relative">
                   <button 
                     onClick={() => setIsNotificationsOpen(!isNotificationsOpen)}
-                    className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors relative"
+                    className={`p-3 rounded-xl transition-all duration-300 relative border shadow-lg hover:scale-105 ${
+                      isScrolled 
+                        ? 'text-gray-800 hover:bg-blue-50/80 border-blue-200/50 hover:text-blue-700 hover:shadow-blue-200/50' 
+                        : 'text-gray-700 hover:bg-blue-100/60 border-blue-300/30 hover:text-blue-800 hover:shadow-blue-300/50'
+                    } dark:text-gray-300 dark:hover:bg-gray-800/70 dark:border-gray-700/50 dark:hover:text-blue-400 dark:hover:shadow-gray-800/50`}
                   >
                     <svg 
                       className="w-5 h-5" 
@@ -515,8 +524,8 @@ const Navbar: React.FC = () => {
                     </svg>
                     
                     {unreadCount > 0 && (
-                      <span className="absolute top-0 right-0 h-4 w-4 rounded-full bg-primary-500 text-white text-xs flex items-center justify-center transform translate-x-1/4 -translate-y-1/4">
-                        {unreadCount}
+                      <span className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-gradient-to-r from-red-500 to-pink-500 text-white text-xs flex items-center justify-center shadow-lg animate-pulse">
+                        {unreadCount > 9 ? '9+' : unreadCount}
                       </span>
                     )}
                   </button>
@@ -583,11 +592,15 @@ const Navbar: React.FC = () => {
                 <div className="relative">
                   <button
                     onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
-                    className="flex items-center space-x-2"
+                    className={`flex items-center space-x-2 px-3 py-2 rounded-xl transition-all duration-300 hover:scale-105 shadow-md ${
+                      isScrolled 
+                        ? 'text-gray-800 hover:bg-primary-50/80 border border-primary-200/50 hover:text-primary-700 hover:shadow-primary-200/50' 
+                        : 'text-gray-700 hover:bg-primary-100/60 border border-primary-300/30 hover:text-primary-800 hover:shadow-primary-300/50'
+                    } dark:text-gray-300 dark:hover:bg-gray-800/70 dark:border-gray-700/50 dark:hover:text-primary-400 dark:hover:shadow-gray-800/50`}
                   >
-                    <div className="w-8 h-8 rounded-full bg-gradient-to-r from-primary-500 to-secondary-500 flex items-center justify-center text-white">
-                      {user?.name?.charAt(0) || 'U'}
-                    </div>
+                                          <div className="w-9 h-9 rounded-full bg-gradient-to-r from-primary-500 via-primary-600 to-amber-500 flex items-center justify-center text-white font-semibold shadow-lg">
+                        {user?.name?.charAt(0) || 'U'}
+                      </div>
                     <span className="hidden sm:inline-block font-medium">
                       {user?.name || 'User'}
                     </span>
@@ -668,7 +681,11 @@ const Navbar: React.FC = () => {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="md:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+              className={`lg:hidden p-3 rounded-xl transition-all duration-300 border shadow-lg hover:scale-105 ${
+                isScrolled 
+                  ? 'text-gray-800 hover:bg-primary-50/80 border-primary-200/50 hover:text-primary-700 hover:shadow-primary-200/50' 
+                  : 'text-gray-700 hover:bg-primary-100/60 border-primary-300/30 hover:text-primary-800 hover:shadow-primary-300/50'
+              } dark:text-gray-300 dark:hover:bg-gray-800/70 dark:border-gray-700/50 dark:hover:text-primary-400 dark:hover:shadow-gray-800/50`}
             >
               {isMenuOpen ? (
                 <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -688,11 +705,15 @@ const Navbar: React.FC = () => {
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            className="md:hidden glass-card mx-4 mb-4 rounded-xl overflow-hidden"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
+            className={`lg:hidden mx-4 mb-4 rounded-2xl overflow-hidden shadow-2xl border ${
+              theme === 'dark'
+                ? 'bg-gradient-to-br from-gray-800/95 via-gray-900/95 to-gray-800/95 border-gray-700/50 backdrop-blur-2xl'
+                : 'bg-gradient-to-br from-white/95 via-primary-50/20 to-white/95 border-primary-200/50 backdrop-blur-2xl'
+            }`}
           >
             <nav className="py-4">
               {isAuthenticated ? (
@@ -738,10 +759,10 @@ const Navbar: React.FC = () => {
               {/* Add Courses button for all users in mobile menu */}
               <Link 
                 to="/courses"
-                className="mobile-nav-link bg-indigo-600 text-white mx-4 my-2 hover:bg-indigo-700"
+                className="block mx-4 my-3 px-4 py-3 bg-gradient-to-r from-primary-500 via-primary-600 to-amber-500 text-white rounded-xl font-medium hover:shadow-xl hover:shadow-primary-500/25 transition-all duration-300 hover:scale-105 text-center"
                 onClick={() => setIsMenuOpen(false)}
               >
-                Courses
+                Explore All Courses
               </Link>
             </nav>
           </motion.div>

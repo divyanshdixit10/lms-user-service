@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from '../contexts/ThemeContext';
 import { toast } from 'react-hot-toast';
+import { Link } from 'react-router-dom';
 
 interface SpecialOfferPopupProps {
   isOpen: boolean;
@@ -80,7 +81,7 @@ const SpecialOfferPopup: React.FC<SpecialOfferPopupProps> = ({ isOpen, onClose }
                 ? 'bg-gradient-to-br from-slate-800 via-slate-900 to-slate-800' 
                 : 'bg-gradient-to-br from-white via-blue-50 to-indigo-50'
             }`}
-            onClick={(e) => e.stopPropagation()}
+            onClick={(e: React.MouseEvent) => e.stopPropagation()}
           >
           {/* Close button */}
           <button
@@ -235,14 +236,13 @@ const SpecialOfferPopup: React.FC<SpecialOfferPopupProps> = ({ isOpen, onClose }
 
             {/* CTA buttons */}
             <div className="space-y-1.5">
-              <a
-                href="https://gontq.courses.store/649688?utm_source=other&utm_medium=tutor-course-referral&utm_campaign=course-overview-webapp"
-                target="_blank"
-                rel="noopener noreferrer"
+              <Link
+                to="/enquiry?offer=special&discount=90"
+                onClick={onClose}
                 className="block w-full py-1.5 px-3 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold rounded transition-all duration-300 transform hover:scale-105 text-center shadow-lg text-xs"
               >
                 🚀 Claim Offer Now
-              </a>
+              </Link>
               <button
                 onClick={(e) => {
                   e.preventDefault();

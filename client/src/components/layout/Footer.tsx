@@ -6,9 +6,33 @@ import GlassCard from '../ui/GlassCard';
 import ParticleBackground from '../ui/ParticleBackground';
 import osopLogo from '../../assets/images/osop-logo.png';
 
+// Type definitions for footer links
+interface FooterLink {
+  name: string;
+  path: string;
+  description: string;
+}
+
+interface OfficeData {
+  title: string;
+  address: string;
+  phone: string;
+  email: string;
+}
+
+interface FooterCategory {
+  title: string;
+  icon: string;
+  links?: FooterLink[];
+  isOfficeInfo?: boolean;
+  officeData?: OfficeData;
+  isJobUpdates?: boolean;
+}
+
 const Footer: React.FC = () => {
   const { theme } = useTheme();
   const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
   const [subscribeStatus, setSubscribeStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [isVisible, setIsVisible] = useState(false);
   const [currentTime, setCurrentTime] = useState(new Date());
@@ -48,36 +72,46 @@ const Footer: React.FC = () => {
     };
   }, []);
   
-  // Footer links organized by category - only existing pages
-  const footerLinks = [
+  // Footer links organized by category - only keeping the pages we want
+  const footerLinks: FooterCategory[] = [
     {
-      title: 'Platform',
+      title: 'Navigation',
       icon: '🚀',
       links: [
+        { name: 'Home', path: '/', description: 'Back to homepage' },
         { name: 'Courses', path: '/courses', description: 'Explore our courses' },
         { name: 'Placement', path: '/placement', description: 'Job placement' },
-        { name: 'Success Stories', path: '/success-stories', description: 'Student success' },
-      ]
-    },
-    {
-      title: 'Company',
-      icon: '🏢',
-      links: [
-        { name: 'About Us', path: '/about', description: 'Our story' },
-        { name: 'Contact', path: '/contact', description: 'Get in touch' },
+        { name: 'What is OSOP?', path: '/what-is-osop', description: 'Learn about OSOP' },
         { name: 'Hire Talent', path: '/hire', description: 'Hire our graduates' },
+        { name: 'Enquiry', path: '/enquiry', description: 'Contact us' },
       ]
     },
     {
-      title: 'Legal & Support',
-      icon: '⚖️',
-      links: [
-        { name: 'Terms of Service', path: '/terms', description: 'Terms & conditions' },
-        { name: 'Privacy Policy', path: '/privacy', description: 'Privacy protection' },
-        { name: 'Cookie Policy', path: '/cookies', description: 'Cookie usage' },
-        { name: 'Refund Policy', path: '/refund', description: 'Refund terms' },
-        { name: 'Security', path: '/security', description: 'Security measures' },
-      ]
+      title: 'Corporate Head Office',
+      icon: '🏢',
+      isOfficeInfo: true,
+      officeData: {
+        title: 'Corporate Head Office & Training Center',
+        address: 'First Floor, Kohinoor Tower, Opp HDFC Bank, Rajmohalla Indore.',
+        phone: '+91 76490 98000',
+        email: 'info@osop.in'
+      }
+    },
+    {
+      title: 'Training Center',
+      icon: '🎓',
+      isOfficeInfo: true,
+      officeData: {
+        title: 'Training Center',
+        address: '2nd Floor, Sundaram Complex, Bhanwarkua Tower Square Road, Indore',
+        phone: '+91 76490 99000',
+        email: 'info@osop.in'
+      }
+    },
+    {
+      title: 'Job Updates',
+      icon: '💼',
+      isJobUpdates: true
     }
   ];
   
@@ -142,7 +176,7 @@ const Footer: React.FC = () => {
       name: 'Instagram', 
       icon: (
         <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M12.017 0C8.396 0 7.989.013 7.041.048 6.094.082 5.52.204 5.02.43c-.524.233-.972.556-1.43 1.014-.458.458-.78.906-1.014 1.43-.226.5-.348 1.074-.382 2.021C2.159 7.989 2.146 8.396 2.146 12.017c0 3.621.013 4.028.048 4.976.034.947.156 1.521.382 2.021.233.524.556.972 1.014 1.43.458.458.906.781 1.014.5.226 1.074.348 2.021.382.947.035 1.354.048 4.975.048 3.621 0 4.028-.013 4.976-.048.947-.034 1.521-.156 2.021-.382.524-.233.972-.556 1.43-1.014.458-.458.781-.906 1.014-1.43.226-.5.348-1.074.382-2.021.035-.948.048-1.355.048-4.976 0-3.621-.013-4.028-.048-4.976-.034-.947-.156-1.521-.382-2.021-.233-.524-.556-.972-1.014-1.43-.458-.458-.906-.781-1.43-1.014-.5-.226-1.074-.348-2.021-.382C16.045.013 15.638 0 12.017 0zM12.017 2.178c3.555 0 3.974.014 5.38.05.869.038 1.472.166 1.851.274.494.192.841.446 1.23.833.387.39.641.736.833 1.23.108.379.236.982.274 1.851.036 1.406.05 1.825.05 5.38 0 3.555-.014 3.974-.05 5.38-.038.869-.166 1.472-.274 1.851-.192.494-.446.841-.833 1.23-.39.387-.736.641-1.23.833-.379.108-.982.236-1.851.274-1.406.036-1.825.05-5.38.05-3.555 0-3.974-.014-5.38-.05-.869-.038-1.472-.166-1.851-.274-.494-.192-.841-.446-1.23-.833-.387-.39-.641-.736-.833-1.23-.108-.379-.236-.982-.274-1.851-.036-1.406-.05-1.825-.05-5.38 0-3.555.014-3.974.05-5.38.038-.869.166-1.472.274-1.851.192-.494.446-.841.833-1.23.39-.387.736-.641 1.23-.833.379-.108.982-.236 1.851-.274 1.406-.036 1.825-.05 5.38-.05zm0 3.685a6.154 6.154 0 100 12.308 6.154 6.154 0 000-12.308zm0 10.143a3.989 3.989 0 110-7.978 3.989 3.989 0 010 7.978zm7.846-10.405a1.44 1.44 0 11-2.88 0 1.44 1.44 0 012.88 0z"/>
+          <path d="M7.75 2h8.5A5.75 5.75 0 0122 7.75v8.5A5.75 5.75 0 0116.25 22h-8.5A5.75 5.75 0 012 16.25v-8.5A5.75 5.75 0 017.75 2zm0 1.5A4.25 4.25 0 003.5 7.75v8.5a4.25 4.25 0 004.25 4.25h8.5a4.25 4.25 0 004.25-4.25v-8.5a4.25 4.25 0 00-4.25-4.25h-8.5zM12 7a5 5 0 110 10 5 5 0 010-10zm0 1.5a3.5 3.5 0 100 7 3.5 3.5 0 000-7zm5.25-2.5a1.25 1.25 0 110 2.5 1.25 1.25 0 010-2.5z"/>
         </svg>
       ),
       url: 'https://instagram.com/osop_coding',
@@ -154,11 +188,20 @@ const Footer: React.FC = () => {
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   };
+
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPhone(e.target.value);
+  };
   
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setSubscribeStatus('error');
+      return;
+    }
+
+    if (!phone || !/^[+]?[\d\s\-\(\)]{10,}$/.test(phone)) {
       setSubscribeStatus('error');
       return;
     }
@@ -170,6 +213,7 @@ const Footer: React.FC = () => {
       await new Promise(resolve => setTimeout(resolve, 2000));
       setSubscribeStatus('success');
       setEmail('');
+      setPhone('');
       
       // Reset status after 3 seconds
       setTimeout(() => {
@@ -184,17 +228,13 @@ const Footer: React.FC = () => {
     <motion.footer 
       id="main-footer"
       style={{ y: footerY, opacity: footerOpacity }}
-      className={`relative overflow-hidden ${
-        theme === 'dark' 
-          ? 'bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900' 
-          : 'bg-gradient-to-br from-white via-blue-50/30 to-purple-50/30'
-      }`}
+      className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900"
     >
       {/* Simplified Background Effects */}
       <div className="absolute inset-0 overflow-hidden">
         <ParticleBackground 
           particleCount={30}
-          colorScheme={theme === 'dark' ? 'purple' : 'blue'}
+          colorScheme="purple"
           connectParticles={true}
           interactivity={false}
           className="opacity-10"
@@ -207,10 +247,10 @@ const Footer: React.FC = () => {
               key={i}
               className={`absolute rounded-full blur-3xl ${
                 i % 3 === 0 
-                  ? `w-64 h-64 ${theme === 'dark' ? 'bg-purple-500/5' : 'bg-purple-200/20'}`
+                  ? 'w-64 h-64 bg-purple-500/5'
                   : i % 3 === 1
-                  ? `w-48 h-48 ${theme === 'dark' ? 'bg-blue-500/5' : 'bg-blue-200/20'}`
-                  : `w-56 h-56 ${theme === 'dark' ? 'bg-indigo-500/5' : 'bg-indigo-200/20'}`
+                  ? 'w-48 h-48 bg-blue-500/5'
+                  : 'w-56 h-56 bg-indigo-500/5'
               }`}
               style={{
                 left: `${Math.random() * 100}%`,
@@ -234,9 +274,9 @@ const Footer: React.FC = () => {
 
         {/* Grid pattern overlay */}
         <div 
-          className={`absolute inset-0 opacity-3 ${theme === 'dark' ? 'opacity-5' : 'opacity-3'}`}
+          className="absolute inset-0 opacity-5"
           style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='${theme === 'dark' ? '%23ffffff' : '%23000000'}' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
             backgroundSize: '60px 60px',
           }}
         />
@@ -258,166 +298,189 @@ const Footer: React.FC = () => {
               >
                 <div className="flex items-center gap-3 mb-3">
                   <span className="text-xl">{category.icon}</span>
-                  <h3 className={`text-xl font-bold ${
-                    theme === 'dark' ? 'text-white' : 'text-slate-800'
-                  }`}>
+                  <h3 className="text-xl font-bold text-white">
                     {category.title}
                   </h3>
                 </div>
                 
-                <ul className="space-y-2">
-                  {category.links.map((link, linkIndex) => (
-                    <motion.li
-                      key={link.name}
-                      initial={{ opacity: 0, x: -10 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.3, delay: (categoryIndex * 0.05) + (linkIndex * 0.02) }}
-                    >
-                      <Link
-                        to={link.path}
-                        className={`group flex flex-col transition-all duration-300 ${
-                          theme === 'dark'
-                            ? 'text-slate-400 hover:text-white'
-                            : 'text-slate-600 hover:text-slate-900'
+                {category.isOfficeInfo && category.officeData ? (
+                  // Office Information Display
+                  <div className="space-y-3">
+                    <div className="p-4 rounded-lg bg-slate-800/50 border border-slate-700/50">
+                      <h4 className="font-semibold text-base mb-2 text-white">
+                        {category.officeData.title}
+                      </h4>
+                      
+                      <div className="space-y-2">
+                        <div className="flex items-start gap-2">
+                          <span className="text-sm mt-0.5">📍</span>
+                          <p className="text-sm leading-relaxed text-slate-300">
+                            {category.officeData.address}
+                          </p>
+                        </div>
+                        
+                        <div className="flex items-center gap-2">
+                          <span className="text-sm">📞</span>
+                          <a 
+                            href={`tel:${category.officeData.phone}`}
+                            className="text-sm font-medium transition-colors duration-300 text-blue-400 hover:text-blue-300"
+                          >
+                            {category.officeData.phone}
+                          </a>
+                        </div>
+                        
+                        <div className="flex items-center gap-2">
+                          <span className="text-sm">✉️</span>
+                          <a 
+                            href={`mailto:${category.officeData.email}`}
+                            className="text-sm font-medium transition-colors duration-300 text-blue-400 hover:text-blue-300"
+                          >
+                            {category.officeData.email}
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ) : category.isJobUpdates ? (
+                  // Job Updates Section
+                  <div className="space-y-3">
+                    <p className="text-base text-slate-400">
+                      Enroll to our Placement Portal for getting Regular Job Updates.
+                    </p>
+                    
+                    <form onSubmit={handleSubmit} className="space-y-3">
+                      <div className="relative">
+                        <input
+                          type="email"
+                          value={email}
+                          onChange={handleEmailChange}
+                          placeholder="your@email.com"
+                          className="w-full px-4 py-3 text-base rounded-lg border transition-all duration-300 bg-slate-700/60 border-slate-600 text-white placeholder-slate-400 focus:bg-slate-700 focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-500/20"
+                          required
+                        />
+                      </div>
+                      
+                      <div className="relative">
+                        <input
+                          type="tel"
+                          value={phone}
+                          onChange={handlePhoneChange}
+                          placeholder="+91 98765 43210"
+                          className="w-full px-4 py-3 text-base rounded-lg border transition-all duration-300 bg-slate-700/60 border-slate-600 text-white placeholder-slate-400 focus:bg-slate-700 focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-500/20"
+                          required
+                        />
+                        {subscribeStatus === 'error' && (
+                          <motion.p 
+                            initial={{ opacity: 0, y: -5 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            className="absolute text-sm text-red-500 mt-1"
+                          >
+                            Please enter valid email and phone number
+                          </motion.p>
+                        )}
+                      </div>
+                      
+                      <motion.button 
+                        type="submit"
+                        disabled={subscribeStatus === 'loading' || subscribeStatus === 'success'}
+                        whileHover={{ scale: subscribeStatus === 'loading' ? 1 : 1.02 }}
+                        whileTap={{ scale: subscribeStatus === 'loading' ? 1 : 0.98 }}
+                        className={`w-full px-4 py-3 text-base rounded-lg font-medium transition-all duration-300 ${
+                          subscribeStatus === 'success'
+                            ? 'bg-gradient-to-r from-green-500 to-emerald-600 text-white'
+                            : subscribeStatus === 'loading'
+                            ? 'bg-gradient-to-r from-slate-400 to-slate-500 text-white cursor-not-allowed'
+                            : 'bg-gradient-to-r from-purple-600 to-blue-600 text-white hover:from-purple-700 hover:to-blue-700 shadow-md hover:shadow-lg'
                         }`}
                       >
-                        <span className="font-medium text-base group-hover:translate-x-1 transition-transform duration-300">
-                          {link.name}
+                        <AnimatePresence mode="wait">
+                          {subscribeStatus === 'loading' ? (
+                            <motion.span 
+                              key="loading"
+                              initial={{ opacity: 0 }}
+                              animate={{ opacity: 1 }}
+                              exit={{ opacity: 0 }}
+                              className="flex items-center justify-center"
+                            >
+                              <svg className="animate-spin h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24">
+                                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                              </svg>
+                              Enrolling...
+                            </motion.span>
+                          ) : subscribeStatus === 'success' ? (
+                            <motion.span 
+                              key="success"
+                              initial={{ opacity: 0, scale: 0.8 }}
+                              animate={{ opacity: 1, scale: 1 }}
+                              exit={{ opacity: 0 }}
+                              className="flex items-center justify-center"
+                            >
+                              <svg className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                              </svg>
+                              Enrolled!
+                            </motion.span>
+                          ) : (
+                            <motion.span 
+                              key="default"
+                              initial={{ opacity: 0 }}
+                              animate={{ opacity: 1 }}
+                              exit={{ opacity: 0 }}
+                            >
+                              Enroll Now
+                            </motion.span>
+                          )}
+                        </AnimatePresence>
+                      </motion.button>
+                    </form>
+
+                    {/* Trust indicators */}
+                    <div className="flex items-center gap-4 text-sm">
+                      <div className="flex items-center gap-2">
+                        <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                        <span className="text-slate-500">
+                          Regular updates
                         </span>
-                        <span className={`text-sm mt-1 ${
-                          theme === 'dark' ? 'text-slate-500' : 'text-slate-500'
-                        }`}>
-                          {link.description}
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                        <span className="text-slate-500">
+                          100% placement support
                         </span>
-                      </Link>
-                    </motion.li>
-                  ))}
-                </ul>
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  // Regular Links Display
+                  <ul className="space-y-2">
+                    {category.links?.map((link, linkIndex) => (
+                      <motion.li
+                        key={link.name}
+                        initial={{ opacity: 0, x: -10 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.3, delay: (categoryIndex * 0.05) + (linkIndex * 0.02) }}
+                      >
+                        <Link
+                          to={link.path}
+                          className="group flex flex-col transition-all duration-300 text-slate-400 hover:text-white"
+                        >
+                          <span className="font-medium text-base group-hover:translate-x-1 transition-transform duration-300">
+                            {link.name}
+                          </span>
+                          <span className="text-sm mt-1 text-slate-500">
+                            {link.description}
+                          </span>
+                        </Link>
+                      </motion.li>
+                    ))}
+                  </ul>
+                )}
               </motion.div>
             ))}
 
-            {/* Newsletter Section */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: 0.3 }}
-              className="space-y-3"
-                >
-              <div className="flex items-center gap-3 mb-3">
-                <span className="text-xl">📧</span>
-                <h3 className={`text-xl font-bold ${
-                  theme === 'dark' ? 'text-white' : 'text-slate-800'
-                  }`}>
-                  Newsletter
-                </h3>
-              </div>
-              
-              <div className="space-y-3">
-                <p className={`text-base ${
-                  theme === 'dark' ? 'text-slate-400' : 'text-slate-600'
-                  }`}>
-                  Join 10,000+ developers getting our updates
-                  </p>
-                  
-                <form onSubmit={handleSubmit} className="space-y-3">
-                  <div className="relative">
-                <input
-                  type="email"
-                  value={email}
-                        onChange={handleEmailChange}
-                      placeholder="your@email.com"
-                      className={`w-full px-4 py-3 text-base rounded-lg border transition-all duration-300 ${
-                          theme === 'dark'
-                          ? 'bg-slate-700/60 border-slate-600 text-white placeholder-slate-400 focus:bg-slate-700 focus:border-purple-500'
-                          : 'bg-white border-slate-300 text-slate-900 placeholder-slate-500 focus:border-purple-500'
-                      } focus:outline-none focus:ring-2 focus:ring-purple-500/20`}
-                  required
-                />
-                      {subscribeStatus === 'error' && (
-                      <motion.p 
-                        initial={{ opacity: 0, y: -5 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className="absolute text-sm text-red-500 mt-1"
-                      >
-                        Please enter a valid email
-                      </motion.p>
-                      )}
-                    </div>
-                  
-                  <motion.button 
-                  type="submit"
-                      disabled={subscribeStatus === 'loading' || subscribeStatus === 'success'}
-                    whileHover={{ scale: subscribeStatus === 'loading' ? 1 : 1.02 }}
-                    whileTap={{ scale: subscribeStatus === 'loading' ? 1 : 0.98 }}
-                    className={`w-full px-4 py-3 text-base rounded-lg font-medium transition-all duration-300 ${
-                        subscribeStatus === 'success'
-                        ? 'bg-gradient-to-r from-green-500 to-emerald-600 text-white'
-                        : subscribeStatus === 'loading'
-                        ? 'bg-gradient-to-r from-slate-400 to-slate-500 text-white cursor-not-allowed'
-                        : 'bg-gradient-to-r from-purple-600 to-blue-600 text-white hover:from-purple-700 hover:to-blue-700 shadow-md hover:shadow-lg'
-                    }`}
-                    >
-                    <AnimatePresence mode="wait">
-                      {subscribeStatus === 'loading' ? (
-                        <motion.span 
-                          key="loading"
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          exit={{ opacity: 0 }}
-                          className="flex items-center justify-center"
-                        >
-                          <svg className="animate-spin h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24">
-                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                          </svg>
-                          Subscribing...
-                        </motion.span>
-                      ) : subscribeStatus === 'success' ? (
-                        <motion.span 
-                          key="success"
-                          initial={{ opacity: 0, scale: 0.8 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          exit={{ opacity: 0 }}
-                          className="flex items-center justify-center"
-                        >
-                          <svg className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                          </svg>
-                          Subscribed!
-                        </motion.span>
-                      ) : (
-                        <motion.span 
-                          key="default"
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          exit={{ opacity: 0 }}
-                        >
-                          Join Newsletter
-                        </motion.span>
-                      )}
-                    </AnimatePresence>
-                  </motion.button>
-                  </form>
 
-                {/* Trust indicators */}
-                <div className="flex items-center gap-4 text-sm">
-                  <div className="flex items-center gap-2">
-                    <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                    <span className={theme === 'dark' ? 'text-slate-500' : 'text-slate-500'}>
-                      No spam
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                    <span className={theme === 'dark' ? 'text-slate-500' : 'text-slate-500'}>
-                      Unsubscribe anytime
-                    </span>
-                  </div>
-                </div>
-              </div>
-                </motion.div>
           </div>
         </div>
       </section>
@@ -434,9 +497,7 @@ const Footer: React.FC = () => {
             className="text-center"
           >
             <div className="flex items-center justify-center gap-3 mb-2">
-              <h4 className={`text-base font-bold ${
-                theme === 'dark' ? 'text-white' : 'text-slate-800'
-              }`}>
+              <h4 className="text-base font-bold text-white">
                 🌐 Connect With Us
               </h4>
               </div>
@@ -480,28 +541,22 @@ const Footer: React.FC = () => {
             {/* Logo and Copyright - Enhanced */}
             <div className="flex items-center gap-4">
               <Link to="/" className="flex items-center group">
-                <div className="relative overflow-hidden rounded-xl p-2 bg-gradient-to-r from-purple-600 to-blue-600 group-hover:from-purple-700 group-hover:to-blue-700 transition-all duration-300">
+                <div className="relative overflow-hidden rounded-xl p-2 transition-all duration-300 bg-gradient-to-r from-purple-600 to-blue-600 group-hover:from-purple-700 group-hover:to-blue-700">
                   <img 
                     src={osopLogo} 
                     alt="OSOP-CODING Logo" 
-                    className="h-8 w-auto object-contain relative z-10 group-hover:scale-110 transition-transform duration-300" 
+                    className="h-8 w-auto object-contain relative z-10 group-hover:scale-110 transition-all duration-300" 
                   />
                 </div>
             </Link>
             
-              <div className={`hidden lg:block h-6 border-l ${
-              theme === 'dark' ? 'border-slate-700' : 'border-slate-300'
-            }`}></div>
+              <div className="hidden lg:block h-6 border-l border-slate-700"></div>
             
               <div className="text-center lg:text-left">
-                <p className={`text-sm font-medium ${
-                  theme === 'dark' ? 'text-slate-400' : 'text-slate-600'
-            }`}>
+                <p className="text-sm font-medium text-slate-400">
               © {currentYear} OSOPCoding. All rights reserved.
             </p>
-                <p className={`text-xs mt-1 ${
-                  theme === 'dark' ? 'text-slate-500' : 'text-slate-500'
-                }`}>
+                <p className="text-xs mt-1 text-slate-500">
                   Made with ❤️ by FIRSTLOGIC INFOSYSTEMS
                 </p>
               </div>
@@ -514,16 +569,12 @@ const Footer: React.FC = () => {
                   <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
                   <div className="absolute inset-0 w-3 h-3 bg-green-500 rounded-full animate-ping opacity-75"></div>
                 </div>
-                <span className={`text-sm font-medium ${
-                  theme === 'dark' ? 'text-slate-300' : 'text-slate-700'
-                }`}>
+                <span className="text-sm font-medium text-slate-300">
                   Online
                 </span>
               </div>
               
-              <div className={`text-sm font-medium ${
-                theme === 'dark' ? 'text-slate-400' : 'text-slate-600'
-              }`}>
+              <div className="text-sm font-medium text-slate-400">
                 {currentTime.toLocaleTimeString('en-US', {
                   hour12: true,
                   hour: '2-digit',
@@ -545,9 +596,7 @@ const Footer: React.FC = () => {
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className={`fixed bottom-6 right-6 z-50 p-3 rounded-full bg-gradient-to-r from-purple-600 to-blue-600 text-white shadow-lg hover:shadow-xl transition-all duration-300 ${
-              theme === 'dark' ? 'hover:from-purple-700 hover:to-blue-700' : 'hover:from-purple-700 hover:to-blue-700'
-            }`}
+            className="fixed bottom-6 right-6 z-50 p-3 rounded-full bg-gradient-to-r from-purple-600 to-blue-600 text-white shadow-lg hover:shadow-xl transition-all duration-300 hover:from-purple-700 hover:to-blue-700"
           >
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />

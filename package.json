@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "chart.js": "^4.4.9",
-    "framer-motion": "^12.10.5",
+    "framer-motion": "^12.16.0",
     "react-chartjs-2": "^5.3.0",
     "react-hot-toast": "^2.5.2",
     "react-icons": "^5.5.0",
@@ -12,7 +12,6 @@
   "version": "1.0.0",
   "description": "This project demonstrates several innovative features for a next-generation coding education platform:",
   "main": "get-youtube-info.js",
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
